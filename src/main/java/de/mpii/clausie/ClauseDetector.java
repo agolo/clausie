@@ -823,10 +823,10 @@ final class ClauseDetector {
                                          IndexedWord verb,
                                          List<IndexedWord> roots) {
         IndexedWord partmodsub = subject;
-        // REVERTED:
-        // Vagaytsev used `addNsubjClause(clausIE, roots, clausIE.clauses, partmodsub, verb, false)`
-        // Below is the original from the source code
-        addNsubjClause(clausIE, roots, clausIE.clauses, partmodsub, verb, true);
+        // TODO: Investigation needed in Vagaytsev's Changes
+        // The source code used `addNsubjClause(clausIE, roots, clausIE.clauses, partmodsub, verb, false)`
+        // However, it does not work with edu.stanford.nlp:3.7.0
+        addNsubjClause(clausIE, roots, clausIE.clauses, partmodsub, verb, false);
     }
 
     /**
