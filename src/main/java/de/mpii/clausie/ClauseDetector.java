@@ -823,6 +823,9 @@ final class ClauseDetector {
                                          IndexedWord verb,
                                          List<IndexedWord> roots) {
         IndexedWord partmodsub = subject;
+        // REVERTED:
+        // Vagaytsev used `addNsubjClause(clausIE, roots, clausIE.clauses, partmodsub, verb, false)`
+        // Below is the original from the source code
         addNsubjClause(clausIE, roots, clausIE.clauses, partmodsub, verb, true);
     }
 
