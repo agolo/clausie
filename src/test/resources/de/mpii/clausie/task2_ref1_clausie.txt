@@ -1,0 +1,212 @@
+# CLAUSE DETECTION
+#   Dict. copular        : 25 (be, prove, sound, ...)
+#   Dict. ext-copular    : 31 (love, be, prove, ...)
+#   Dict. not ext.-cop.  : 2 (die, walk)
+#   Dict. complex trans. : 15 (set, lay, bring, ...)
+#   Dict. ignored adverb : 6 (as, thus, even, ...)
+#   Dict. included adverb: 5 (seldom, barely, scarcely, ...)
+#   Dict. conj adverbs   : 0
+#   Conservative SVA     : true
+#   Conservative SVOA    : false
+#   Process all verb CCs : true
+#   Process non-verb CCs : false
+#   Process appositions  : true
+#   Process possessives  : true
+#   Process partmods     : true
+# 
+# REPRESENTATION
+#   n-ary propositions  : false
+#   Min. opt. args      : 0
+#   Max. opt. args      : 1
+#   Lemmatize           : false
+#   Appositions verb    : "is"
+#   Possessive verb     : "has"
+# Line 1: Harry Potter and the Chamber of Secrets.
+# Semantic graph: [Potter/NNP
+#                  nn:Harry/NNP
+#                  cc:and/CC
+#                  conj:[Chamber/NNP det:the/DT prep:[of/IN pobj:Secrets/NNS]]]
+#   Detected 0 clause(s).
+# Line 2: "Harry Potter and the Chamber of Secrets" leaves all of the explanations of wizardry behind and plunges quickly into an adventure that's darker and scarier than anything in the first Harry Potter movie.
+# Semantic graph: [leaves/VBZ
+#                  nsubj:[Potter/NNP
+#                         nn:Harry/NNP
+#                         cc:and/CC
+#                         conj:[Chamber/NNP det:the/DT prep:[of/IN pobj:Secrets/NNS]]]
+#                  dobj:[all/DT
+#                        prep:[of/IN
+#                              pobj:[explanations/NNS det:the/DT prep:[of/IN pobj:wizardry/NN]]]]
+#                  advmod:behind/RB
+#                  cc:and/CC
+#                  conj:[plunges/VBZ
+#                        advmod:quickly/RB
+#                        prep:[into/IN
+#                              pobj:[adventure/NN
+#                                    det:an/DT
+#                                    rcmod:[darker/JJR
+#                                           nsubj:that/WDT
+#                                           cop:'s/VBZ
+#                                           cc:and/CC
+#                                           conj:[scarier/NN
+#                                                 prep:[than/IN
+#                                                       pobj:[anything/NN
+#                                                             prep:[in/IN
+#                                                                   pobj:[movie/NN
+#                                                                         det:the/DT
+#                                                                         amod:first/JJ
+#                                                                         nn:Harry/NNP
+#                                                                         nn:Potter/NNP]]]]]]]]]]
+#   Detected 3 clause(s).
+#   - SVO (V: leaves@10, S: Potter@3, O: all@11, A?: behind@17)
+#   - SVA (V: plunges@19, S: Potter@3, A!: quickly@20, A?: into@21)
+#   - SVC (C: darker@26, V: 's@25, S: adventure@23)
+2	"Harry Potter and the Chamber of Secrets"	"leaves"	"all of the explanations of wizardry behind"
+2	"Harry Potter and the Chamber of Secrets"	"leaves"	"all of the explanations of wizardry"
+2	"Harry Potter and the Chamber of Secrets"	"plunges"	"quickly into an adventure"
+2	"Harry Potter and the Chamber of Secrets"	"plunges"	"quickly"
+2	"an adventure"	"'s"	"darker and scarier than anything in the first Harry Potter movie"
+# Line 3: The second in a planned series of seven Potter films is brimming with invention and new ideas, and its Hogwarts School seems to expand and deepen before our very eyes into a world large enough to conceal unguessable secrets.
+# Semantic graph: [brimming/VBG
+#                  nsubj:[second/NN
+#                         det:The/DT
+#                         prep:[in/IN
+#                               pobj:[series/NN
+#                                     det:a/DT
+#                                     amod:planned/JJ
+#                                     prep:[of/IN pobj:[films/NNS num:seven/CD nn:Potter/NNP]]]]]
+#                  aux:is/VBZ
+#                  prep:[with/IN pobj:[ideas/NNS nn:[invention/NN cc:and/CC conj:new/JJ]]]
+#                  cc:and/CC
+#                  conj:[seems/VBZ
+#                        nsubj:[School/NNP poss:its/PRP$ nn:Hogwarts/NNP]
+#                        xcomp:[expand/VB
+#                               aux:to/TO
+#                               cc:and/CC
+#                               conj:deepen/VB
+#                               prep:[before/IN pobj:[eyes/NNS poss:our/PRP$ amod:very/JJ]]
+#                               prep:[into/IN
+#                                     pobj:[world/NN
+#                                           det:a/DT
+#                                           amod:[large/JJ
+#                                                 advmod:enough/RB
+#                                                 xcomp:[conceal/VB
+#                                                        aux:to/TO
+#                                                        dobj:[secrets/NNS amod:unguessable/JJ]]]]]]]]
+#   Detected 4 clause(s).
+#   - SVA (V: brimming@12, S: second@2, A!: with@13)
+#   - SVO (S: its@20, V: "has", O: School@22)
+#   - SVC (V: seems@23, S: School@22, XCOMP: expand@25)
+#   - SVO (S: our@29, V: "has", O: eyes@31)
+3	"The second in a planned series of seven Potter films"	"is brimming"	"with invention and new ideas"
+3	"its"	"has"	"Hogwarts School"
+3	"its Hogwarts School"	"seems"	"to expand before our very eyes into a world large enough to conceal unguessable secrets"
+3	"its Hogwarts School"	"seems"	"to expand before our very eyes"
+3	"its Hogwarts School"	"seems"	"to deepen before our very eyes into a world large enough to conceal unguessable secrets"
+3	"its Hogwarts School"	"seems"	"to deepen before our very eyes"
+3	"our"	"has"	"very eyes"
+# Line 4: The young heroes find themselves in many tense situations: in a flying car, surrounded by giant spiders, and facing a giant serpent with Medusa-like abilities.
+# Semantic graph: [find/VBP
+#                  nsubj:[heroes/NNS det:The/DT amod:young/JJ]
+#                  dobj:themselves/PRP
+#                  prep:[in/IN
+#                        pobj:[situations/NNS
+#                              amod:many/JJ
+#                              amod:tense/JJ
+#                              prep:[in/IN pobj:[car/NN det:a/DT amod:flying/VBG]]
+#                              partmod:[surrounded/VBN
+#                                       prep:[by/IN pobj:[spiders/NNS amod:giant/JJ]]]]]
+#                  cc:and/CC
+#                  conj:[facing/VBG
+#                        dobj:[serpent/NN det:a/DT amod:giant/JJ]
+#                        prep:[with/IN pobj:[abilities/NNS amod:Medusa-like/JJ]]]]
+#   Detected 3 clause(s).
+#   - SVO (V: find@4, S: heroes@3, O: themselves@5, A?: in@6)
+#   - SVO (V: facing@22, S: heroes@3, O: serpent@25, A?: with@26)
+#   - SVA (V: "be surrounded", S: situations@9, A!: by@17)
+4	"The young heroes"	"find"	"themselves in many tense situations in a flying car surrounded by giant spiders"
+4	"The young heroes"	"find"	"themselves"
+4	"The young heroes"	"facing"	"a giant serpent with Medusa-like abilities"
+4	"The young heroes"	"facing"	"a giant serpent"
+4	"many tense situations in a flying car"	"be surrounded"	"by giant spiders"
+# Line 5: Harry and his best friends Ron and Hermione may partake in plenty of rule-breaking at school but they are great role models; fierce and loyal friends 'til the end and willing to do whatever it takes to save their fellow students.
+# Semantic graph: [partake/VB
+#                  nsubj:[Harry/NNP cc:and/CC conj:[friends/NNS poss:his/PRP$ amod:best/JJS]]
+#                  nsubj:[Ron/NNP cc:and/CC conj:Hermione/NNP]
+#                  aux:may/MD
+#                  prep:[in/IN pobj:[plenty/RB prep:[of/IN pobj:rule-breaking/NN]]]
+#                  prep:[at/IN pobj:school/NN]
+#                  cc:but/CC
+#                  conj:[models/NNS
+#                        nsubj:they/PRP
+#                        cop:are/VBP
+#                        amod:great/JJ
+#                        nn:role/NN
+#                        dep:['til/VBG
+#                             nsubj:[friends/NNS amod:[fierce/JJ cc:and/CC conj:loyal/JJ]]
+#                             dobj:[end/NN det:the/DT]
+#                             cc:and/CC
+#                             conj:[willing/VBG
+#                                   xcomp:[do/VB
+#                                          aux:to/TO
+#                                          ccomp:[takes/VBZ
+#                                                 dep:whatever/WDT
+#                                                 nsubj:it/PRP
+#                                                 xcomp:[save/VB
+#                                                        aux:to/TO
+#                                                        dobj:[students/NNS
+#                                                              poss:their/PRP$
+#                                                              amod:fellow/JJ]]]]]]]]
+#   Detected 8 clause(s).
+#   - SVO (S: his@3, V: "has", O: friends@5)
+#   - SVA (V: partake@10, S: Harry@1, A!: in@11, A?: at@15)
+#   - SVA (V: partake@10, S: Ron@6, A!: in@11, A?: at@15)
+#   - SVC (C: models@22, V: are@19, S: they@18)
+#   - SVO (V: 'til@28, S: friends@27, O: end@30)
+#   - SVO (V: willing@32, S: friends@27, XCOMP: do@34)
+#   - SVO (V: takes@37, S: it@36, XCOMP: save@39)
+#   - SVO (S: their@40, V: "has", O: students@42)
+5	"his"	"has"	"best friends"
+5	"Harry and his best friends"	"Ron may partake"	"in plenty of rule-breaking at school"
+5	"Harry and his best friends"	"Hermione may partake"	"in plenty of rule-breaking at school"
+5	"Harry and his best friends"	"Ron may partake"	"in plenty of rule-breaking"
+5	"Harry and his best friends"	"Hermione may partake"	"in plenty of rule-breaking"
+5	"Ron and Hermione"	"Harry may partake"	"in plenty of rule-breaking at school"
+5	"Ron and Hermione"	"his best friends may partake"	"in plenty of rule-breaking at school"
+5	"Ron and Hermione"	"Harry may partake"	"in plenty of rule-breaking"
+5	"Ron and Hermione"	"his best friends may partake"	"in plenty of rule-breaking"
+5	"they"	"are"	"great role models fierce and loyal friends 'til the end and willing to do whatever it takes to save their fellow students"
+5	"fierce and loyal friends"	"'til"	"the end"
+5	"fierce and loyal friends"	"willing"	"to do whatever it takes to save their fellow students"
+5	"it"	"takes"	"to save their fellow students"
+5	"their"	"has"	"fellow students"
+# Line 6: Parents need to know that this exciting fantasy may motivate children to tackle its greater length and complexity and play imaginative games.
+# Semantic graph: [need/VBP
+#                  nsubj:Parents/NNS
+#                  xcomp:[know/VB
+#                         aux:to/TO
+#                         ccomp:[motivate/VB
+#                                complm:that/IN
+#                                nsubj:[fantasy/NN det:this/DT amod:exciting/JJ]
+#                                aux:may/MD
+#                                xcomp:[tackle/VB
+#                                       nsubj:children/NNS
+#                                       aux:to/TO
+#                                       dobj:[length/NN
+#                                             poss:its/PRP$
+#                                             amod:greater/JJR
+#                                             cc:and/CC
+#                                             conj:complexity/NN]
+#                                       cc:and/CC
+#                                       conj:[play/VB dobj:[games/NNS amod:imaginative/JJ]]]]]]
+#   Detected 5 clause(s).
+#   - SVO (V: need@2, S: Parents@1, XCOMP: know@4)
+#   - SVO (V: motivate@10, S: fantasy@8, XCOMP: tackle@13)
+#   - SVO (V: tackle@13, S: children@11, O: length@16)
+#   - SVO (V: play@20, S: children@11, O: games@22)
+#   - SVO (S: its@14, V: "has", O: length@16)
+6	"Parents"	"need"	"to know that this exciting fantasy may motivate children to tackle its greater length and complexity and play imaginative games"
+6	"this exciting fantasy"	"may motivate"	"children to tackle its greater length and complexity"
+6	"this exciting fantasy"	"may motivate"	"children to play imaginative games"
+6	"children"	"to tackle"	"its greater length and complexity"
+6	"children"	"to play"	"imaginative games"
+6	"its"	"has"	"greater length and complexity"

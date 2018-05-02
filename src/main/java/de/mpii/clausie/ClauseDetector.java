@@ -316,7 +316,7 @@ final class ClauseDetector {
                 IndexedWord dependent = outgoingEdge.getDependent();
 
                 // to avoid compl or mark in a main clause. "I doubt if she was sure whether this was important".
-                if (DpUtils.isComplm(outgoingEdge) || DpUtils.isMark(outgoingEdge)) {
+                if ((DpUtils.isComplm(outgoingEdge) || DpUtils.isMark(outgoingEdge)) && constRoot instanceof IndexedConstituent) {
                     ((IndexedConstituent) constRoot).getExcludedVertexes().add(dependent);
                     //Indirect Object
                 } else if (DpUtils.isIobj(outgoingEdge)) {
