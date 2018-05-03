@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * This is Vgaytsev (author of the parent repo)'s modified version.
+ * This is Vagaytsev (author of the parent repo)'s modified version.
  *
  * Currently the default proposition generator generates 3-ary propositions out of a clause.
  * <p>

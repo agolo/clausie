@@ -10,7 +10,7 @@ import edu.stanford.nlp.trees.GrammaticalRelation;
 import java.util.*;
 
 /**
- * This is Vgaytsev (author of the parent repo)'s modified version.
+ * This is Vagaytsev (author of the parent repo)'s modified version.
  *
  * Handles the generation of propositions out of a given clause.
  */

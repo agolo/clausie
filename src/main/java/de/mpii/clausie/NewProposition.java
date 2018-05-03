@@ -5,7 +5,7 @@ import edu.stanford.nlp.ling.IndexedWord;
 import java.util.*;
 
 /**
- * This is Vgaytsev (author of the parent repo)'s modified version.
+ * This is Vagaytsev (author of the parent repo)'s modified version.
  *
  * Stores a proposition.
  * <p>

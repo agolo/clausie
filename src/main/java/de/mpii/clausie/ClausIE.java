@@ -189,7 +189,7 @@ public class ClausIE {
                             .get(i)).getClauses();
                     xclausIE.generatePropositions();
                     for (Proposition p : xclausIE.propositions) {
-//                        p.setType(clause.type.name());
+                        // p.setType(clause.type.name()); // In Vagaytsev's modification
                         StringBuilder sb = new StringBuilder();
                         String sep = "";
                         for (int j = 0; j < p.constituents.size(); j++) {
