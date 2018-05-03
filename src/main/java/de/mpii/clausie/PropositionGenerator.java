@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
+ * This is {@link PropositionGenerator} after refactoring from the original ClausIE source code.
+ *
  * Handles the generation of propositions out of a given clause.
  */
 public abstract class PropositionGenerator {

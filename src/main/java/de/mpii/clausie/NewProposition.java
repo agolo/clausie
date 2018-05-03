@@ -5,6 +5,8 @@ import edu.stanford.nlp.ling.IndexedWord;
 import java.util.*;
 
 /**
+ * This is Vgaytsev (author of the parent repo)'s modified version.
+ *
  * Stores a proposition.
  * <p>
  * Date: $LastChangedDate: 2013-04-24 11:54:36 +0200 (Wed, 24 Apr 2013) $

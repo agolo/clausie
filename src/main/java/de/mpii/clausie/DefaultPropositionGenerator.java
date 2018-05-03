@@ -7,8 +7,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * This will be what DefaultPropositionGenerator should look like after refactoring from the original
- * ClausIE source code.
+ * This is {@link DefaultPropositionGenerator} after refactoring from the original ClausIE source code.
  *
  * Currently the default proposition generator generates 3-ary propositions out of a clause.
  * <p>

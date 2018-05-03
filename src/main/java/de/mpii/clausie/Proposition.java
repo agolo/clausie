@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * This is {@link Proposition} after refactoring from the original ClausIE source code.
+ *
  * Stores a proposition.
  * <p>
  * Date: $LastChangedDate: 2013-04-24 11:54:36 +0200 (Wed, 24 Apr 2013) $

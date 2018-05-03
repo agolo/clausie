@@ -7,6 +7,8 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
+ * This is Vgaytsev (author of the parent repo)'s modified version.
+ *
  * Currently the default proposition generator generates 3-ary propositions out of a clause.
  * <p>
  * Date:  $LastChangedDate: 2013-04-23 12:50:00 +0200 (Tue, 23 Apr 2013) $
