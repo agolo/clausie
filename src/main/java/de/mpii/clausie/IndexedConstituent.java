@@ -165,7 +165,8 @@ public class IndexedConstituent extends Constituent {
     /**
      * Checks whether this constituent is a prepositional phrase (i.e., starts with a preposition).
      */
-    public boolean isPrepositionalPhrase() { //This is a mess, find other way of fixing. This is purely heuristic. It needs to know the semantic graph for the sentence after this is fixed the member variable sentSemanticGraph can be removed
+    public boolean isPrepositionalPhrase() {
+        // TODO: This is a mess, find other way of fixing. This is purely heuristic. It needs to know the semantic graph for the sentence after this is fixed the member variable sentSemanticGraph can be removed
         List<IndexedWord> parents = semanticGraph.getParentList(root); //This is not the cleanest way semantics messed up. specially with the rel we cannot just check if the head is a preposition (return root.tag().equals("IN")) because the parser some times includes a preposition in the verbal phrase "He is about to win"
         for (IndexedWord parent : parents) {
             SemanticGraphEdge edge = semanticGraph.getEdge(parent, root);

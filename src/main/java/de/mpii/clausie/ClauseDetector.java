@@ -316,7 +316,7 @@ final class ClauseDetector {
                 IndexedWord dependent = outgoingEdge.getDependent();
 
                 // to avoid compl or mark in a main clause. "I doubt if she was sure whether this was important".
-                if (DpUtils.isComplm(outgoingEdge) || DpUtils.isMark(outgoingEdge)) {
+                if ((DpUtils.isComplm(outgoingEdge) || DpUtils.isMark(outgoingEdge)) && constRoot instanceof IndexedConstituent) {
                     ((IndexedConstituent) constRoot).getExcludedVertexes().add(dependent);
                     //Indirect Object
                 } else if (DpUtils.isIobj(outgoingEdge)) {
@@ -823,6 +823,9 @@ final class ClauseDetector {
                                          IndexedWord verb,
                                          List<IndexedWord> roots) {
         IndexedWord partmodsub = subject;
+        // TODO: Investigation needed in Vagaytsev's Changes
+        // The source code used `addNsubjClause(clausIE, roots, clausIE.clauses, partmodsub, verb, true)`
+        // However, it does not work with edu.stanford.nlp:3.7.0
         addNsubjClause(clausIE, roots, clausIE.clauses, partmodsub, verb, false);
     }
 

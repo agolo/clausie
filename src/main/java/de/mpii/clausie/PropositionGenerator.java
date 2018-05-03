@@ -1,15 +1,19 @@
 package de.mpii.clausie;
 
-import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.IndexedWord;
-import edu.stanford.nlp.ling.Label;
 import edu.stanford.nlp.semgraph.SemanticGraph;
 import edu.stanford.nlp.trees.EnglishGrammaticalRelations;
 import edu.stanford.nlp.trees.GrammaticalRelation;
-
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
+ * This is {@link PropositionGenerator} after refactoring from the original ClausIE source code.
+ *
  * Handles the generation of propositions out of a given clause.
  */
 public abstract class PropositionGenerator {
@@ -104,13 +108,7 @@ public abstract class PropositionGenerator {
                            Collection<GrammaticalRelation> excludeRelationsTop) {
         Constituent constituent = clause.constituents.get(constituentIndex);
         if (constituent instanceof TextConstituent) {
-            String s = ((TextConstituent) constituent).text();
-            words = new TreeSet<>();
-            String[] keys = "value,word,lemma,tag".split(",");
-            Label label = new CoreLabel(keys, createValues(s));
-            IndexedWord word = new IndexedWord(label);
-            words.add(word);
-            return s;
+            return ((TextConstituent) constituent).text();
         } else if (constituent instanceof IndexedConstituent) {
             IndexedConstituent iconstituent = (IndexedConstituent) constituent;
             SemanticGraph subgraph = iconstituent.createReducedSemanticGraph();
@@ -130,15 +128,5 @@ public abstract class PropositionGenerator {
         } else {
             throw new IllegalArgumentException();
         }
-    }
-
-    private String[] createValues(String s) {
-        if ("has".equals(s)) return "has,has,have,VBZ".split(",");
-        if ("is".equals(s)) return "is,is,be,VBZ".split(",");
-        return (s + ',' + s + ',' + s + ",NN").split(",");
-    }
-
-    public Set<IndexedWord> getWords() {
-        return words;
     }
 }

@@ -1,12 +1,14 @@
 package de.mpii.clausie;
 
 import de.mpii.clausie.Constituent.Flag;
-import edu.stanford.nlp.ling.IndexedWord;
-
-import java.util.*;
-import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
+ * This is {@link DefaultPropositionGenerator} after refactoring from the original ClausIE source code.
+ *
  * Currently the default proposition generator generates 3-ary propositions out of a clause.
  * <p>
  * Date:  $LastChangedDate: 2013-04-23 12:50:00 +0200 (Tue, 23 Apr 2013) $
@@ -19,90 +21,61 @@ public class DefaultPropositionGenerator extends PropositionGenerator {
         super(clausIE);
     }
 
-    @Override
-    public void generate(List<Proposition> result,
-                         Clause clause,
-                         List<Boolean> include) {
-        Proposition proposition = new Proposition();
-        List<Proposition> propositions = new ArrayList<>();
-
-        // process subject
-        if (clause.subject > -1 && include.get(clause.subject)) { // subject is -1 when there is an xcomp
-            proposition.constituents.add(generate(clause, clause.subject));
-            proposition.setType(clause.type.name());
-            Set<IndexedWord> subjWords = super.getWords();
-            proposition.addSubject(subjWords);
-            proposition.addItem("subject", subjWords);
-        } else {
-            //throw new IllegalArgumentException();
-        }
-
-        // process verb
-        if (include.get(clause.verb)) {
-            proposition.constituents.add(generate(clause, clause.verb));
-            Set<IndexedWord> verbWords = super.getWords();
-            proposition.addVerb(verbWords);
-            proposition.addItem("verb", verbWords);
-        } else {
-            throw new IllegalArgumentException();
-        }
-
-        propositions.add(proposition);
-
-        // process arguments
-        SortedMap<String, SortedSet<Integer>> sortedIndexes = new TreeMap<>();
-        SortedSet<Integer> iobjects = new TreeSet<>(clause.iobjects);
-        sortedIndexes.put("iobjects", iobjects);
-
-        SortedSet<Integer> dobjects = new TreeSet<>(clause.dobjects);
-        sortedIndexes.put("dobjects", dobjects);
-
-        SortedSet<Integer> xcomps = new TreeSet<>(clause.xcomps);
-        sortedIndexes.put("xcomps", xcomps);
-
-        SortedSet<Integer> ccomps = new TreeSet<>(clause.ccomps);
-        sortedIndexes.put("ccomps", ccomps);
-
-        SortedSet<Integer> acomps = new TreeSet<>(clause.acomps);
-        sortedIndexes.put("acomps", acomps);
-
-        SortedSet<Integer> adverbials = new TreeSet<>(clause.adverbials);
-        sortedIndexes.put("adverbials", adverbials);
-
-        if (clause.complement >= 0) {
-            SortedSet<Integer> complement = new TreeSet<>();
-            complement.add(clause.complement);
-            sortedIndexes.put("complement", complement);
-        }
-
-        for (Entry<String, SortedSet<Integer>> entry : sortedIndexes.entrySet()) {
-            for (Integer index : entry.getValue()) {
-                if (clause.constituents.get(clause.verb) instanceof IndexedConstituent && clause.adverbials.contains(index) && ((IndexedConstituent) clause.constituents.get(index)).getRoot().index() < ((IndexedConstituent) clause.constituents.get(clause.verb)).getRoot().index())
-                    continue;
-                for (Proposition p : propositions) {
-                    if (include.get(index)) {
-                        p.constituents.add(generate(clause, index));
-                        p.addItem(entry.getKey(), super.getWords());
-                    }
-                }
-            }
-        }
-
-        // process adverbials  before verb
-        SortedSet<Integer> sortedInd = new TreeSet<>(clause.adverbials);
-        for (Integer index : sortedInd) {
-            if (clause.constituents.get(clause.verb) instanceof TextConstituent || ((IndexedConstituent) clause.constituents.get(index)).getRoot().index() > ((IndexedConstituent) clause.constituents.get(clause.verb)).getRoot().index())
-                break;
-            if (include.get(index)) {
-                for (Proposition p : propositions) {
-                    p.constituents.add(generate(clause, index));
-                    if (clause.getFlag(index, clausIE.options).equals(Flag.OPTIONAL)) {
-                        p.optional.add(p.constituents.size());
-                        p.addItem("adverbials", super.getWords());
-                    }
-                }
-            }
-        }
+	@Override
+	public void generate(List<Proposition> result, Clause clause,
+						 List<Boolean> include) {
+		Proposition proposition = new Proposition();
+		List<Proposition> propositions = new ArrayList<>();
+		
+		// process subject
+		if (clause.subject > -1 && include.get(clause.subject)) { // subject is -1 when there is an xcomp
+			proposition.constituents.add( generate(clause, clause.subject) );
+		} else {
+			//throw new IllegalArgumentException();
+		}
+		
+		// process verb
+		if (include.get(clause.verb)) {
+			proposition.constituents.add( generate(clause, clause.verb) );
+		} else {
+			throw new IllegalArgumentException();
+		}
+		
+		propositions.add(proposition);
+		
+		// process arguments
+		SortedSet<Integer> sortedIndexes = new TreeSet<Integer>();
+		sortedIndexes.addAll(clause.iobjects);
+		sortedIndexes.addAll(clause.dobjects);
+		sortedIndexes.addAll(clause.xcomps);
+		sortedIndexes.addAll(clause.ccomps);
+		sortedIndexes.addAll(clause.acomps);
+		sortedIndexes.addAll(clause.adverbials);
+		if (clause.complement >= 0)
+			sortedIndexes.add(clause.complement);
+		for(Integer index: sortedIndexes) {
+			if (clause.constituents.get(clause.verb) instanceof IndexedConstituent && clause.adverbials.contains(index) && ((IndexedConstituent)clause.constituents.get(index)).getRoot().index() < ((IndexedConstituent)clause.constituents.get(clause.verb)).getRoot().index()) continue;
+				for(Proposition p: propositions) {
+						if (include.get(index)) {
+							p.constituents.add( generate(clause, index) );
+						}
+				}
+		}
+		
+		// process adverbials  before verb
+		sortedIndexes.clear();
+		sortedIndexes.addAll(clause.adverbials);
+		for (Integer index : sortedIndexes) {
+			if (clause.constituents.get(clause.verb) instanceof TextConstituent || ((IndexedConstituent)clause.constituents.get(index)).getRoot().index() > ((IndexedConstituent)clause.constituents.get(clause.verb)).getRoot().index()) break;
+			if (include.get(index)) {
+				for(Proposition p: propositions) {
+					p.constituents.add( generate(clause, index) );
+					if (clause.getFlag(index, clausIE.options).equals(Flag.OPTIONAL)) {
+						p.optional.add(p.constituents.size());
+					}	
+				}
+			}
+		}
 
         // make 3-ary if needed
         if (!clausIE.options.nary) {

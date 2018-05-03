@@ -1,10 +1,13 @@
 package de.mpii.clausie;
 
-import edu.stanford.nlp.ling.IndexedWord;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
+ * This is {@link Proposition} after refactoring from the original ClausIE source code.
+ *
  * Stores a proposition.
  * <p>
  * Date: $LastChangedDate: 2013-04-24 11:54:36 +0200 (Wed, 24 Apr 2013) $
@@ -21,12 +24,6 @@ public class Proposition {
      * Position of optional constituents.
      */
     Set<Integer> optional = new HashSet<>();
-    //IndexedWords
-    private Set<IndexedWord> subjectWords;
-    private Set<IndexedWord> verbWords;
-    private Map<String, Set<IndexedWord>> items;
-    private Object subject;
-    private String type;
 
     // TODO: types of constituents (e.g., optionality)
     // sentence ID etc.
@@ -94,41 +91,5 @@ public class Proposition {
         clone.constituents = new ArrayList<>(constituents);
         clone.optional = new HashSet<>(optional);
         return clone;
-    }
-
-    public void addSubject(Set<IndexedWord> subjWords) {
-        this.subjectWords = subjWords;
-    }
-
-    public void addVerb(Set<IndexedWord> verbWords) {
-        this.verbWords = verbWords;
-    }
-
-    public void addItem(String type, Set<IndexedWord> words) {
-        if (items == null) {
-            items = new HashMap<>();
-        }
-        items.put(type, words);
-    }
-
-    public Set<IndexedWord> getSubject() {
-        return subjectWords;
-    }
-
-    public Set<IndexedWord> getVerb() {
-        return verbWords;
-    }
-
-    public Map<String, Set<IndexedWord>> getItems() {
-        if (items == null) return Collections.emptyMap();
-        return items;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
     }
 }
