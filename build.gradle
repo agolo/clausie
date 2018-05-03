@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 
-group = 'de.mpii.clausie'
+group = 'com.agolo.de.mpii'
 version = '0.1.2'
 
 description = """"""
